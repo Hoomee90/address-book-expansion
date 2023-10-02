@@ -29,19 +29,17 @@ class AddressBook {
 
 // Business Logic for Contacts
 class Contact {
-  constructor(firstName, lastName, phoneNumber, emailAddress, physicalAddress) {
+  constructor(firstName, lastName, phoneNumber) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.phoneNumber = phoneNumber;
-    this.emailAddress = emailAddress;
-    this.physicalAddress = physicalAddress;
 
     this.addresses = {};
     this.currentId = 0;
   }
   addAddress(address) {
     address.id = this.assignId();
-    this.address[address.id] = address;
+    this.addresses[address.id] = address;
   }
   assignId() {
     this.currentId += 1;
@@ -66,7 +64,7 @@ class Address {
     this.address = address;
   }
   listFull() {
-    this.type.contact(" ", this.isEmail ? "Email: " : "Address: ", this.address);
+    this.type.concat(" ", this.isEmail ? "Email: " : "Address: ", this.address);
   }
 }
 
@@ -89,12 +87,19 @@ function listContacts(addressBookToDisplay) {
 
 function displayContactDetails(event) {
   const contact = addressBook.findContact(event.target.id);
+  const deleteButton = document.querySelector("button.delete");
+  const addressesList = document.querySelector("#addresses");
   document.querySelector(".first-name").innerText = contact.firstName;
   document.querySelector(".last-name").innerText = contact.lastName;
   document.querySelector(".phone-number").innerText = contact.phoneNumber;
-  document.querySelector(".email-address").innerText = contact.emailAddress;
-  document.querySelector(".physical-address").innerText = contact.physicalAddress;
-  document.querySelector("button.delete").setAttribute("id", contact.id);
+  addressesList.innerHTML = "";
+  Object.keys(contact.addresses).forEach((key) => {
+    const address = contact.findAddress(key);
+    const p = document.createElement("p");
+    p.append(address.listFull());
+    addressesList.append(p);
+  });
+  deleteButton.setAttribute("id", contact.id);
   document.querySelector("div#contact-details").removeAttribute("class");
 }
 
@@ -110,9 +115,15 @@ function handleFormSubmission(event) {
   const inputtedFirstName = document.querySelector("input#new-first-name").value;
   const inputtedLastName = document.querySelector("input#new-last-name").value;
   const inputtedPhoneNumber = document.querySelector("input#new-phone-number").value;
+  const inputtedEmailType = document.querySelector("input#new-email-type").value;
   const inputtedEmailAddress = document.querySelector("input#new-email-address").value;
+  const inputtedPhysicalType = document.querySelector("input#new-physical-type").value;
   const inputtedPhysicalAddress = document.querySelector("input#new-physical-address").value;
-  let newContact = new Contact(inputtedFirstName, inputtedLastName, inputtedPhoneNumber, inputtedEmailAddress, inputtedPhysicalAddress);
+  let newContact = new Contact(inputtedFirstName, inputtedLastName, inputtedPhoneNumber);
+  let newEmail = new Address(true, inputtedEmailType, inputtedEmailAddress);
+  let newPhysical = new Address(false, inputtedPhysicalType, inputtedPhysicalAddress);
+  newContact.addAddress(newEmail);
+  newContact.addAddress(newPhysical);
   addressBook.addContact(newContact);
   listContacts(addressBook);
   event.target.reset();
