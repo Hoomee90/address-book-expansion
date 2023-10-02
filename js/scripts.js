@@ -29,10 +29,12 @@ class AddressBook {
 
 // Business Logic for Contacts
 class Contact {
-  constructor(firstName, lastName, phoneNumber) {
+  constructor(firstName, lastName, phoneNumber, emailAddress, physicalAddress) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.phoneNumber = phoneNumber;
+    this.emailAddress = emailAddress;
+    this.physicalAddress = physicalAddress;
   }
   fullName() {
     return this.firstName + " " + this.lastName;
@@ -61,6 +63,8 @@ function displayContactDetails(event) {
   document.querySelector(".first-name").innerText = contact.firstName;
   document.querySelector(".last-name").innerText = contact.lastName;
   document.querySelector(".phone-number").innerText = contact.phoneNumber;
+  document.querySelector(".email-address").innerText = contact.emailAddress;
+  document.querySelector(".physical-address").innerText = contact.physicalAddress;
   document.querySelector("button.delete").setAttribute("id", contact.id);
   document.querySelector("div#contact-details").removeAttribute("class");
 }
@@ -77,12 +81,12 @@ function handleFormSubmission(event) {
   const inputtedFirstName = document.querySelector("input#new-first-name").value;
   const inputtedLastName = document.querySelector("input#new-last-name").value;
   const inputtedPhoneNumber = document.querySelector("input#new-phone-number").value;
-  let newContact = new Contact(inputtedFirstName, inputtedLastName, inputtedPhoneNumber);
+  const inputtedEmailAddress = document.querySelector("input#new-email-address").value;
+  const inputtedPhysicalAddress = document.querySelector("input#new-physical-address").value;
+  let newContact = new Contact(inputtedFirstName, inputtedLastName, inputtedPhoneNumber, inputtedEmailAddress, inputtedPhysicalAddress);
   addressBook.addContact(newContact);
   listContacts(addressBook);
-  document.querySelector("input#new-first-name").value = null;
-  document.querySelector("input#new-last-name").value = null;
-  document.querySelector("input#new-phone-number").value = null;
+  event.target.reset();
 }
 
 window.addEventListener("load", function (){
