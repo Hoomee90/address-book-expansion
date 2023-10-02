@@ -35,9 +35,38 @@ class Contact {
     this.phoneNumber = phoneNumber;
     this.emailAddress = emailAddress;
     this.physicalAddress = physicalAddress;
+
+    this.addresses = {};
+    this.currentId = 0;
+  }
+  addAddress(address) {
+    address.id = this.assignId();
+    this.address[address.id] = address;
+  }
+  assignId() {
+    this.currentId += 1;
+    return this.currentId;
+  }
+  findAddress(id) {
+    if (this.addresses[id] !== undefined) {
+      return this.addresses[id];
+    }
+    return false;
   }
   fullName() {
     return this.firstName + " " + this.lastName;
+  }
+}
+
+// Business Logic for Address
+class Address {
+  constructor(isEmail, type, address) {
+    this.isEmail = isEmail;
+    this.type = type;
+    this.address = address;
+  }
+  listFull() {
+    this.type.contact(" ", this.isEmail ? "Email: " : "Address: ", this.address);
   }
 }
 
