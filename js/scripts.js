@@ -58,13 +58,13 @@ class Contact {
 
 // Business Logic for Address
 class Address {
-  constructor(isEmail, type, address) {
-    this.isEmail = isEmail;
+  constructor(category, type, address) {
+    this.category = category;
     this.type = type;
     this.address = address;
   }
   listFull() {
-    return this.type.concat(" ", this.isEmail ? "Email: " : "Address: ", this.address);
+    return this.type + " " + this.category + ": " + this.address;
   }
 }
 
@@ -126,19 +126,13 @@ function handleFormSubmission(event) {
   const inputtedFirstName = document.querySelector("input#new-first-name").value;
   const inputtedLastName = document.querySelector("input#new-last-name").value;
   const inputtedPhoneNumber = document.querySelector("input#new-phone-number").value;
-  const inputtedEmailTypes = document.querySelectorAll("input.new-email-type");
-  const inputtedEmailAddresses = document.querySelectorAll("input.new-email-address");
-  const inputtedPhysicalTypes = document.querySelectorAll("input.new-physical-type");
-  const inputtedPhysicalAddresses = document.querySelectorAll("input.new-physical-address");
+  const inputtedAddresses = document.querySelectorAll("input.new-address");
+  const inputtedTypes = document.querySelectorAll("input.new-address-type");
   let newContact = new Contact(inputtedFirstName, inputtedLastName, inputtedPhoneNumber);
   
-  inputtedEmailAddresses.forEach((element, index) => {
-    const newEmail = new Address(true, inputtedEmailTypes[index].value, element.value)
+  inputtedAddresses.forEach((element, index) => {
+    const newEmail = new Address(element.parentElement.parentElement.className.includes("email") ? "Email" : "Address", inputtedTypes[index].value, element.value);
     newContact.addAddress(newEmail);
-  });
-  inputtedPhysicalAddresses.forEach((element, index) => {
-    const newPhysical = new Address(false, inputtedPhysicalTypes[index].value, element.value)
-    newContact.addAddress(newPhysical);
   });
 
   addressBook.addContact(newContact);
