@@ -73,7 +73,10 @@ let addressBook = new AddressBook();
 
 function handleAddingInputElements(event) {
   let inputContainer = document.querySelector("div#" + event.target.getAttribute("data-target"));
-  const inputToClone = inputContainer.lastElementChild.cloneNode(true);
+  let inputToClone = inputContainer.lastElementChild.cloneNode(true);
+  for (element of inputToClone.children) {
+    element.lastElementChild.value = "";
+  }
   inputContainer.append(inputToClone);
 }
 

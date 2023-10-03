@@ -41,6 +41,7 @@ Test: "It should find the correct container to add input elements to"
 Code:
 const event = PointerEvent{...target:button.row.email-input};
 handleAddingInputElements(event);
+!PAUSE!
 console.log(inputContainer)
 Expected Output: div#email.input-container;
 
@@ -48,6 +49,7 @@ Test: "It should create a node clone of the correct container's last child"
 Code:
 const event = PointerEvent{...target:button.row.email-input};
 handleAddingInputElements(event);
+!PAUSE!
 console.log(inputToClone)
 Expected Output: div.row.email-input;
 
@@ -55,5 +57,13 @@ Test: "It should append the cloned node to the container"
 Code:
 const event = PointerEvent{...target:button.row.email-input};
 handleAddingInputElements(event);
-console.log((document.querySelector("div#email"))
+console.log((document.querySelector("div#email")))
 Expected Output: div#email.input-container{div.row.email.input, div.row.email.input};
+
+Test: "The cloned node's input field should be blank"
+Code:
+const event = PointerEvent{...target:button.row.email-input};
+handleAddingInputElements(event);
+!PAUSE!
+inputToClone.lastElementChild.lastElementChild.value
+Expected Output: "";
