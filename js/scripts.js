@@ -71,6 +71,12 @@ class Address {
 // User Interface Logic
 let addressBook = new AddressBook();
 
+function handleAddingInputElements(event) {
+  let inputContainer = document.querySelector("div#" + event.target.getAttribute("data-target"));
+  const inputToClone = inputContainer.lastElementChild.cloneNode(true);
+  inputContainer.append(inputToClone);
+}
+
 function listContacts(addressBookToDisplay) {
   let contactsDiv = document.querySelector("div#contacts");
   contactsDiv.innerText =  null;
