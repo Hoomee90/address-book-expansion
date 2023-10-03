@@ -117,17 +117,25 @@ function handleFormSubmission(event) {
   const inputtedFirstName = document.querySelector("input#new-first-name").value;
   const inputtedLastName = document.querySelector("input#new-last-name").value;
   const inputtedPhoneNumber = document.querySelector("input#new-phone-number").value;
-  const inputtedEmailType = document.querySelector("input#new-email-type").value;
-  const inputtedEmailAddress = document.querySelector("input#new-email-address").value;
-  const inputtedPhysicalType = document.querySelector("input#new-physical-type").value;
-  const inputtedPhysicalAddress = document.querySelector("input#new-physical-address").value;
+  const inputtedEmailTypes = document.querySelectorAll("input.new-email-type");
+  const inputtedEmailAddresses = document.querySelectorAll("input.new-email-address");
+  const inputtedPhysicalTypes = document.querySelectorAll("input.new-physical-type");
+  const inputtedPhysicalAddresses = document.querySelectorAll("input.new-physical-address");
   let newContact = new Contact(inputtedFirstName, inputtedLastName, inputtedPhoneNumber);
-  let newEmail = new Address(true, inputtedEmailType, inputtedEmailAddress);
-  let newPhysical = new Address(false, inputtedPhysicalType, inputtedPhysicalAddress);
-  newContact.addAddress(newEmail);
-  newContact.addAddress(newPhysical);
+  
+  inputtedEmailAddresses.forEach((element, index) => {
+    const newEmail = new Address(true, inputtedEmailTypes[index].value, element.value)
+    newContact.addAddress(newEmail);
+  });
+  inputtedPhysicalAddresses.forEach((element, index) => {
+    const newPhysical = new Address(false, inputtedPhysicalTypes[index].value, element.value)
+    newContact.addAddress(newPhysical);
+  });
+
   addressBook.addContact(newContact);
   listContacts(addressBook);
+
+  document.querySelectorAll("div.input-container").forEach(container => container.replaceChildren(container.lastElementChild));
   event.target.reset();
 }
 
@@ -135,4 +143,6 @@ window.addEventListener("load", function (){
   document.querySelector("form#new-contact").addEventListener("submit", handleFormSubmission);
   document.querySelector("div#contacts").addEventListener("click", displayContactDetails);
   document.querySelector("button.delete").addEventListener("click", handleDelete);
+  document.querySelector("button#physical-button").addEventListener("click", handleAddingInputElements);
+  document.querySelector("button#email-button").addEventListener("click", handleAddingInputElements);
 });
