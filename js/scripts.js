@@ -64,7 +64,7 @@ class Address {
     this.address = address;
   }
   listFull() {
-    this.type.concat(" ", this.isEmail ? "Email: " : "Address: ", this.address);
+    return this.type.concat(" ", this.isEmail ? "Email: " : "Address: ", this.address);
   }
 }
 
@@ -88,17 +88,19 @@ function listContacts(addressBookToDisplay) {
 function displayContactDetails(event) {
   const contact = addressBook.findContact(event.target.id);
   const deleteButton = document.querySelector("button.delete");
-  const addressesList = document.querySelector("#addresses");
+  let addressesList = document.querySelector("#addresses");
+  let listDiv = document.createElement("div");
   document.querySelector(".first-name").innerText = contact.firstName;
   document.querySelector(".last-name").innerText = contact.lastName;
   document.querySelector(".phone-number").innerText = contact.phoneNumber;
-  addressesList.innerHTML = "";
+  addressesList.innerHTML = null;
   Object.keys(contact.addresses).forEach((key) => {
     const address = contact.findAddress(key);
     const p = document.createElement("p");
     p.append(address.listFull());
-    addressesList.append(p);
+    listDiv.append(p);
   });
+  addressesList.append(listDiv);
   deleteButton.setAttribute("id", contact.id);
   document.querySelector("div#contact-details").removeAttribute("class");
 }
