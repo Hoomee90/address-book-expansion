@@ -1,8 +1,8 @@
-# Text Analyzer
+# Address Book
 
 #### By **Samantha Callie**, with code from [Epicodus](https://github.com/epicodus-lessons/oop-address-book-v2/tree/8_adding_delete_functionality_and_polish)
 
-#### Generate The Name of Any Number Base
+#### Keep a book of all the people to address
 
 ## Technologies Used
 
@@ -13,7 +13,7 @@
 
 ## Description
 
-
+This site is an interactive Address Book. Users can add contacts to a list, each with their own name, number and any number and type of emails and addresses. Users can also view full details or delete entries by clicking the contact.
 
 ## Setup/Installation Requirements
 
@@ -23,7 +23,7 @@
 
 ## Known Bugs
 
-* 
+* There are no known bug at this time
 
 ## License
 
@@ -42,28 +42,28 @@ Code:
 const event = PointerEvent{...target:button.row.email-input};
 handleAddingInputElements(event);
 !PAUSE!
-console.log(inputContainer)
-Expected Output: div#email.input-container;
+console.log(inputContainer);
+Expected Output: div#email.input-container
 
 Test: "It should create a node clone of the correct container's last child"
 Code:
 const event = PointerEvent{...target:button.row.email-input};
 handleAddingInputElements(event);
 !PAUSE!
-console.log(inputToClone)
-Expected Output: div.row.email-input;
+console.log(inputToClone);
+Expected Output: div.row.email-input
 
 Test: "It should append the cloned node to the container"
 Code:
 const event = PointerEvent{...target:button.row.email-input};
 handleAddingInputElements(event);
-console.log((document.querySelector("div#email")))
-Expected Output: div#email.input-container{div.row.email.input, div.row.email.input};
+console.log((document.querySelector("div#email")));
+Expected Output: div#email.input-container{div.row.email.input, div.row.email.input}
 
 Test: "The cloned node's input field should be blank"
 Code:
 const event = PointerEvent{...target:button.row.email-input};
 handleAddingInputElements(event);
 !PAUSE!
-inputToClone.lastElementChild.lastElementChild.value
-Expected Output: "";
+inputToClone.lastElementChild.lastElementChild.value;
+Expected Output: ""
