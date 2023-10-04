@@ -74,7 +74,7 @@ let addressBook = new AddressBook();
 function handleAddingInputElements(event) {
   let inputContainer = document.querySelector("div#" + event.target.getAttribute("data-target"));
   let inputToClone = inputContainer.lastElementChild.cloneNode(true);
-  for (element of inputToClone.children) {
+  for (let element of inputToClone.children) {
     element.lastElementChild.value = "";
   }
   inputContainer.append(inputToClone);
@@ -86,10 +86,12 @@ function listContacts(addressBookToDisplay) {
   const ul = document.createElement("ul");
   Object.keys(addressBookToDisplay.contacts).forEach(function(key) {
     const contact = addressBookToDisplay.findContact(key);
-    const li = document.createElement("li");
-    li.append(contact.fullName());
-    li.setAttribute("id", contact.id);
-    ul.append(li);
+    const button = document.createElement("button");
+    const listButton = document.createElement("li");
+    button.append(contact.fullName());
+    button.setAttribute("id", contact.id);
+    listButton.append(button);
+    ul.append(listButton);
   });
   contactsDiv.append(ul);
 }
