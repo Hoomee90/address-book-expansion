@@ -23,7 +23,7 @@ This site is an interactive Address Book. Users can add contacts to a list, each
 
 ## Known Bugs
 
-* There are no known bug at this time
+* Adding contacts with blank form details may lead to unexpected results
 
 ## License
 
